@@ -33,5 +33,16 @@ export default {
         numReviews: 8,
         countInStock: 10
     },
+    {
+        _id: '4',
+        name: 'Worst Pants',
+        category: 'Pants',
+        image: '/images/d1.jpg',
+        price: 40,
+        brand: 'NoName',
+        rating: 2.5,
+        numReviews: 9,
+        countInStock: 4
+    },
 ]
 }

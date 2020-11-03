@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import config from './config';
 import mongoose from 'mongoose';
 import userRoute from './routes/userRoute';
-// const mongoose = require('mongoose');
+import bodyParser from 'body-parser';
 
 dotenv.config();
 
@@ -18,6 +18,7 @@ mongoose.connect(mongodbUrl, {
 
 
 const app = express();
+app.use(bodyParser.json());
 app.use("/api/users", userRoute); //concatenates this path to route url
 
 app.get("/api/products/:id", (req, res) => {
