@@ -1,7 +1,24 @@
 import express from 'express'; //creates server
 import data from './data';
+import dotenv from 'dotenv';
+import config from './config';
+import mongoose from 'mongoose';
+import userRoute from './routes/userRoute';
+// const mongoose = require('mongoose');
+
+dotenv.config();
+
+const mongodbUrl = config.MONGODB_URL;
+mongoose.connect(mongodbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+}).then(() => {console.log('mongodb connected')})
+.catch(error => console.log(error.reason));
+
 
 const app = express();
+app.use("/api/users", userRoute); //concatenates this path to route url
 
 app.get("/api/products/:id", (req, res) => {
     const productId = req.params.id;
