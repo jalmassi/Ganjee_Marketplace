@@ -12,7 +12,7 @@ router.post('/signin', async (req, res) => {
     if(signinUser){
         res.send({
             _id: signinUser.id,
-            signinUser: signinUser.name,
+            name: signinUser.name,
             email: signinUser.email,
             isAdmin: signinUser.isAdmin,
             token: getToken(signinUser)
