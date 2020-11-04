@@ -9,6 +9,15 @@ router.get("/", async (req, res) => {
     res.send(products);
 });
 
+router.get("/:id", async (req, res) => {
+    const product = await Product.findOne({_id: req.params.id});
+    if(product){
+        res.send(product);
+    } else{
+        res.status(404).send({message: "Product Not Found"})
+    }
+});
+
 router.delete("/:id", async (req, res) => {
     const deletedProduct = await Product.findById(req.params.id);
     if(deletedProduct){

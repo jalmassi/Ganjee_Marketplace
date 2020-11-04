@@ -9,11 +9,16 @@ function SigninScreen (props) {
     const [password, setPassword] = useState('')
     const userSignin = useSelector(state => state.userSignin);
     const {loading, userInfo, error} = userSignin;
+    const redirect = props.location.search ? props.location.search.split("=")[1] : "/";
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(userInfo.name != null){
-            props.history.push("/"); //redirect to homepage
+        // console.log(userInfo);
+        console.log(userSignin);
+        console.log(userInfo);
+        console.log("---------------");
+        if(!Array.isArray(userInfo)){
+            props.history.push(redirect); //redirect to homepage
         }
         return () => {
             //
@@ -51,7 +56,7 @@ function SigninScreen (props) {
                     Sign up
                 </li>
                 <li>
-                    <Link to="/register" className="button text-center button-secondary" >Create your account</Link>
+                    <Link to={redirect === "/" ? "/register" : "register?redirect=" + redirect} className="button text-center button-secondary" >Create your account</Link>
                 </li>
             </ul>
         </form>
