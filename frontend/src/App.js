@@ -2,13 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { logout } from './actions/userActions';
 import './App.css';
-import CartScreen from './Screens/CartScreen';
-import HomeScreen from './Screens/HomeScreen';
-import ProductScreen from './Screens/ProductScreen';
-import ProductsScreen from './Screens/ProductsScreen';
-import RegisterScreen from './Screens/registerScreen';
-import ShippingScreen from './Screens/ShippingScreen';
-import SigninScreen from './Screens/SigninScreen';
+import CartScreen from './Pages/CartScreen';
+import HomeScreen from './Pages/HomeScreen';
+import ProductScreen from './Pages/ProductScreen';
+import ProductsScreen from './Pages/ProductsScreen';
+import RegisterScreen from './Pages/registerScreen';
+import ShippingScreen from './Pages/ShippingScreen';
+import SigninScreen from './Pages/SigninScreen';
 
 function App() {
 
@@ -20,7 +20,6 @@ function App() {
     const signoff = () => {
         dispatch(logout());
         closeMenu();
-    //     this.props.history.push("/");
     }
   const openMenu = () => {
     document.querySelector(".sidebar").classList.add("open");

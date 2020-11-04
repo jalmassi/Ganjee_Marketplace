@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { saveShipping } from '../actions/cartActions';
-// import CheckoutSteps from '../components/CheckoutSteps';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 function ShippingScreen(props) {
 
@@ -14,10 +14,10 @@ function ShippingScreen(props) {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(saveShipping({ address, city, postalCode, country }));
-    // props.history.push('payment');
+    props.history.push('payment');
   }
   return <div>
-    {/* <CheckoutSteps step1 step2 ></CheckoutSteps> */}
+    <CheckoutSteps step1 step2 ></CheckoutSteps>
     <div className="form">
       <form onSubmit={submitHandler} >
         <ul className="form-container">
