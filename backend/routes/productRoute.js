@@ -29,7 +29,7 @@ router.delete("/:id", async (req, res) => {
 
 })
 
-router.put("/:id", isAuth, isAdmin, async (req, res) => {
+router.put("/:id", async (req, res) => {
     const productId = req.params.id;
     console.log("inside put");
     const product = await Product.findById(productId);
@@ -50,7 +50,7 @@ router.put("/:id", isAuth, isAdmin, async (req, res) => {
     return res.status(500).send({message: 'Error in Creating product.'});
 })
 
-router.post("/", isAuth, isAdmin, async (req, res) => {
+router.post("/", async (req, res) => {
     const product = new Product({
         name: req.body.name,
         image: req.body.image,

@@ -14,10 +14,10 @@ function SigninScreen (props) {
 
     useEffect(() => {
         // console.log(userInfo);
-        console.log(userSignin);
+        console.log(userInfo == undefined);
         console.log(userInfo);
         console.log("---------------");
-        if(!Array.isArray(userInfo)){
+        if(!Array.isArray(userInfo) && userInfo != undefined){
             props.history.push(redirect); //redirect to homepage
         }
         return () => {

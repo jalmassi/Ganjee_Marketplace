@@ -1,12 +1,13 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { logout } from './actions/userActions';
 import './App.css';
 import CartScreen from './Screens/CartScreen';
 import HomeScreen from './Screens/HomeScreen';
 import ProductScreen from './Screens/ProductScreen';
 import ProductsScreen from './Screens/ProductsScreen';
 import RegisterScreen from './Screens/registerScreen';
-import ShippingScreen from './Screens/shippingScreen';
+import ShippingScreen from './Screens/ShippingScreen';
 import SigninScreen from './Screens/SigninScreen';
 
 function App() {
@@ -14,6 +15,13 @@ function App() {
     const userSignin = useSelector(state => state.userSignin);
     const {userInfo} = userSignin;
 
+    const dispatch = useDispatch();
+
+    const signoff = () => {
+        dispatch(logout());
+        closeMenu();
+    //     this.props.history.push("/");
+    }
   const openMenu = () => {
     document.querySelector(".sidebar").classList.add("open");
   }
@@ -42,10 +50,10 @@ function App() {
                 <button className="sidebar-close-button" onClick={closeMenu}>x</button>
                 <ul>
                     <li>
-                        <a href="index.html">Shirts</a>
+                        <a href="/products">Products</a>
                     </li>
                     <li>
-                        <a href="index.html">Pants</a>
+                        <Link to="/" onClick={() => signoff()}>Sign Out</Link>
                     </li>
                 </ul>
             </aside>

@@ -81,13 +81,13 @@ a:hover{
   padding: 0;
   flex: 0 1 34rem; /*growth, shrink, width*/
   margin: 1rem;
-  height: 50rem;
+  height: 32rem;
   border-bottom: 0.1rem #c0c0c0 solid;
 }
 .product{
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   height: 100%;
 }
 .product-name{
