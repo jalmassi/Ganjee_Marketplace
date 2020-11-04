@@ -6,6 +6,7 @@ import HomeScreen from './Screens/HomeScreen';
 import ProductScreen from './Screens/ProductScreen';
 import ProductsScreen from './Screens/ProductsScreen';
 import RegisterScreen from './Screens/registerScreen';
+import ShippingScreen from './Screens/shippingScreen';
 import SigninScreen from './Screens/SigninScreen';
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
             </aside>
             <main className="main">
                 <div className="content">
+                  <Route path="/shipping" component={ShippingScreen} />
                   <Route path="/signin" component={SigninScreen} />
                   <Route path="/register" component={RegisterScreen} />
                   <Route path="/product/:id" component={ProductScreen} />
