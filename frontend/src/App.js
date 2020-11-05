@@ -4,6 +4,8 @@ import { logout } from './actions/userActions';
 import './App.css';
 import CartScreen from './Pages/CartScreen';
 import HomeScreen from './Pages/HomeScreen';
+import PaymentScreen from './Pages/PaymentScreen';
+import PlaceOrderScreen from './Pages/PlaceOrderScreen';
 import ProductScreen from './Pages/ProductScreen';
 import ProductsScreen from './Pages/ProductsScreen';
 import RegisterScreen from './Pages/registerScreen';
@@ -58,6 +60,8 @@ function App() {
             </aside>
             <main className="main">
                 <div className="content">
+                  <Route path="/placeorder" component={PlaceOrderScreen} />
+                  <Route path="/payment" component={PaymentScreen} />
                   <Route path="/shipping" component={ShippingScreen} />
                   <Route path="/signin" component={SigninScreen} />
                   <Route path="/register" component={RegisterScreen} />
