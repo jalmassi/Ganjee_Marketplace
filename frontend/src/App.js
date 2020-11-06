@@ -4,6 +4,7 @@ import { logout } from './actions/userActions';
 import './App.css';
 import CartScreen from './Pages/CartScreen';
 import HomeScreen from './Pages/HomeScreen';
+import OrderScreen from './Pages/OrderScreen';
 import PaymentScreen from './Pages/PaymentScreen';
 import PlaceOrderScreen from './Pages/PlaceOrderScreen';
 import ProductScreen from './Pages/ProductScreen';
@@ -60,6 +61,7 @@ function App() {
             </aside>
             <main className="main">
                 <div className="content">
+                    <Route path="/order/:id" component={OrderScreen} />
                   <Route path="/placeorder" component={PlaceOrderScreen} />
                   <Route path="/payment" component={PaymentScreen} />
                   <Route path="/shipping" component={ShippingScreen} />

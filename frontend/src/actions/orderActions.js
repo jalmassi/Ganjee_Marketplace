@@ -1,6 +1,6 @@
 import Axios from "axios";
 import { ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_PAY_REQUEST, ORDER_PAY_FAIL,
-    ORDER_PAY_SUCCESS, ORDER_DETAILS_SUCCESS, ORDER_DETAILS_FAIL } from "../constants/orderConstants";
+    ORDER_PAY_SUCCESS, ORDER_DETAILS_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST } from "../constants/orderConstants";
 
 
 const createOrder = (order) => async (dispatch, getState) => {
@@ -36,13 +36,14 @@ const payOrder = (order, paymentResult) => async (dispatch, getState) => {
 
 const detailsOrder = (orderId) => async (dispatch, getState) => {
     try {
-        dispatch({type: ORDER_DETAILS_FAIL, payload: data});
+        dispatch({type: ORDER_DETAILS_REQUEST, payload: orderId});
         const {userSignin: {userInfo}} = getState();
         const { data } = await Axios.get("/api/orders/" + orderId, {
             headers: {
                 Authorization: 'Bearer ' + userInfo.token
             }
         });
+        console.log("detailsOrder action");
         dispatch({type: ORDER_DETAILS_SUCCESS, payload: data});
     } catch (error) {
         dispatch({type: ORDER_DETAILS_FAIL, payload: error.message});

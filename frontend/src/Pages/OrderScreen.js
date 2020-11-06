@@ -7,7 +7,6 @@ function OrderScreen(props){
 
     const orderPay = useSelector(state => state.orderPay);
     const {loading: loadingPay, success: successPay, error: errorPay } = orderPay;
-
     const dispatch = useDispatch();
 
 
@@ -15,19 +14,18 @@ function OrderScreen(props){
       if(successPay){
         props.history.push("/profile");
       }else{
-          dispatch(detailsOrder(props.match.params.id));
+        dispatch(detailsOrder(props.match.params.id));
       }
       return () => {
 
-        }
+      }
     }, [successPay])
-
-    const successPaymentHandler = (paymentResult) => {
-        dispatch(payOrder(order, paymentResult));
-    }
 
     const orderDetails = useSelector(state => state.orderDetails);
     const {loading, order, error} = orderDetails;
+    const successPaymentHandler = (paymentResult) => {
+        dispatch(payOrder(order, paymentResult));
+    }
 
     return loading ? <div>Loading...</div> : error ? <div>{error}</div> :
     <div>
@@ -42,7 +40,7 @@ function OrderScreen(props){
           {order.shipping.postalCode}, {order.shipping.country},
           </div>
           <div>
-              {/* {order.isDelivered ? "Delivered at " + order.deliveredAt : "Not Delivered"} */}
+              {order.isDelivered ? "Delivered at " + order.deliveredAt : "Not Delivered"}
           </div>
         </div>
         <div>
@@ -51,7 +49,7 @@ function OrderScreen(props){
             Payment Method: {order.payment.paymentMethod}
           </div>
           <div>
-            {/* {order.isPaid ? "Paid at " + order.paidAt : "Not Paid"} */}
+            {order.isPaid ? "Paid at " + order.paidAt : "Not Paid"}
           </div>
         </div>
         <div>
@@ -97,8 +95,8 @@ function OrderScreen(props){
       <div className="placeorder-action">
         <ul>
           <li className="placeorder-actions-payment">
-            {/* {loadingPay && <div>Finishing Payment...</div>}
-            {!order.isPaid &&
+            {loadingPay && <div>Finishing Payment...</div>}
+            {/* {!order.isPaid &&
                 <PaypalButton amount ={order.totalPrice} onSuccess={successPaymentHandler} />} */}
           </li>
           <li>

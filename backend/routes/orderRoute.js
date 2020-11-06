@@ -3,7 +3,7 @@ import Order from '../models/orderModel'
 
 const router = express.Router();
 
-router.put("/:id/pay", async(req,res) => {
+router.put("/:id/pay", async(req,res) => { //edit order -> paid
     const order = await Order.findById(req.params.id);
     if(order){
         order.isPaid = true;
@@ -24,19 +24,28 @@ router.put("/:id/pay", async(req,res) => {
 });
 
 router.post("/", async (req,res) => { //create order
-    console.log("inside create order server");
     const newOrder = new Order({
-        orderItems: req.body.orderItems,
+        orderItems: req.body.cartItems,
         // user: req.user._id,
-        orderItems: req.body.orderItems,
         shipping: req.body.shipping,
         payment: req.body.payment,
         itemsPrice: req.body.itemsPrice,
         shippingPrice: req.body.shippingPrice,
+        taxPrice: req.body.taxPrice,
         totalPrice: req.body.totalPrice,
     });
     const newOrderCreated = await newOrder.save();
     res.status(201).send({message: "New Order Created", data: newOrderCreated})
 });
+
+router.get("/:id", async (req, res) => { //get order details
+    console.log("in order details");
+    const order = await Order.findById(req.params.id);
+    if(order){
+        res.send(order);
+    }else{
+        res.status(404).send({message: "Order not found"});
+    }
+})
 
 export default router;

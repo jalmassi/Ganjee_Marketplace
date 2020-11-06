@@ -37,7 +37,7 @@ function PlaceOrderScreen(props){
 
     const placeOrderHandler = () => {
         dispatch(createOrder({
-          orderitems: cartItems, shipping, payment, itemsPrice, shippingPrice, taxPrice, totalPrice
+          cartItems, shipping, payment, itemsPrice, shippingPrice, taxPrice, totalPrice
         }));
     }
 
