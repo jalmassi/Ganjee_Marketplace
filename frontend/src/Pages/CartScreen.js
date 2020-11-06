@@ -46,7 +46,7 @@ function CartScreen(props){
                             <div>Cart is empty</div>
                             :
                             cartItems.map(item =>
-                                    <div>
+                                    <div key={item._id}>
                                         <Link to={"/product/" + item.product} >
                                         <img src={item.image} alt="product" />
                                         </Link>

@@ -5,6 +5,7 @@ import config from './config';
 import mongoose from 'mongoose';
 import userRoute from './routes/userRoute';
 import productRoute from './routes/productRoute';
+import orderRoute from './routes/orderRoute';
 import bodyParser from 'body-parser';
 
 dotenv.config();
@@ -22,6 +23,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use("/api/users", userRoute); //concatenates this path to route url
 app.use("/api/products", productRoute);
+app.use("/api/orders", orderRoute)
 
 app.get("/api/products/:id", (req, res) => {
     const productId = req.params.id;
