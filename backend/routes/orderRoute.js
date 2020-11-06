@@ -27,7 +27,7 @@ router.post("/", async (req,res) => { //create order
     console.log("inside create order server");
     const newOrder = new Order({
         orderItems: req.body.orderItems,
-        user: req.user._id,
+        // user: req.user._id,
         orderItems: req.body.orderItems,
         shipping: req.body.shipping,
         payment: req.body.payment,
