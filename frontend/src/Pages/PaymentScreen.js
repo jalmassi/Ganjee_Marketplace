@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { savePayment } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps';
 
 function PaymentScreen(props) {
 
-  const [paymentMethod, setPaymentMethod] = useState('');
+  const cart = useSelector(state => state.cart);
+  const {shipping} = cart;
+  const [paymentMethod, setPaymentMethod] = useState('PayPal');
   const dispatch = useDispatch();
+
+  if(!shipping.address || !shipping.city ){
+    props.history.push("/shipping");
+  }
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -23,7 +29,7 @@ function PaymentScreen(props) {
           </li>
           <li>
             <div>
-                <input type="radio" name="address" id="address" value="paypal" onChange={(e) => setPaymentMethod(e.target.value)}>
+                <input type="radio" name="address" id="address" value="PayPal" onChange={(e) => setPaymentMethod(e.target.value)}>
                 </input>
                 <label htmlFor="address">
                 Paypal

@@ -9,7 +9,14 @@ import { orderCreateReducer, orderDetailsReducer, orderPayReducer } from './redu
 const cartItems = Cookie.getJSON("cartItems") || [];
 const userInfo = Cookie.getJSON("userInfo") || [];
 
-const initialState = {cart: {cartItems}, shipping: {}, payment: {}, userSignin:{userInfo}};
+const initialState = {
+    cart: {
+        cartItems: cartItems,
+        shipping: localStorage.getItem('shipping') ?
+            JSON.parse(localStorage.getItem('shipping')) : {},
+        payment: {}
+    },
+    userSignin:{userInfo}};
 const reducer = combineReducers({
     productList: productListReducer,
     productDetails: productDetailsReducer,

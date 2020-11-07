@@ -32,14 +32,17 @@ function updateCookie(getState){
 
 const saveShipping = (data) => (dispatch) =>{
     dispatch({type: CART_SAVE_SHIPPING, payload: data});
+    localStorage.setItem('shipping', JSON.stringify(data));
 }
 
 const savePayment = (data) => (dispatch) =>{
     dispatch({type: CART_SAVE_PAYMENT, payload: data});
+    localStorage.setItem('payment', JSON.stringify(data));
 }
 
 const savePlaceOrder = (data) => (dispatch) =>{
     dispatch({type: CART_SAVE_PLACEORDER, payload: data});
+    localStorage.setItem('placeOrder', JSON.stringify(data));
 }
 
 

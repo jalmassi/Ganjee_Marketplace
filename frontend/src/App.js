@@ -22,6 +22,7 @@ function App() {
 
     const signoff = () => {
         dispatch(logout());
+        localStorage.clear();
         closeMenu();
     }
   const openMenu = () => {
