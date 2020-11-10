@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { addToCart, removeFromCart } from '../actions/cartActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import uuid from 'node-uuid';
 
 function CartScreen(props){
 
@@ -45,7 +46,7 @@ function CartScreen(props){
                             <div>Cart is empty</div>
                             :
                             cartItems.map(item =>
-                                    <div key={item._id}>
+                                    <div key={uuid()}>
                                         <Link to={"/product/" + item.product} >
                                         <img src={item.image} alt="product" />
                                         </Link>

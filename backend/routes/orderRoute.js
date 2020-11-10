@@ -39,7 +39,7 @@ router.post("/", async (req,res) => { //create order
 });
 
 router.get("/:id", async (req, res) => { //get order details
-    console.log("order details route");
+    console.log("order details: route start");
     console.log(req.params.id);
     const order = await Order.findById(req.params.id);
     if(order){

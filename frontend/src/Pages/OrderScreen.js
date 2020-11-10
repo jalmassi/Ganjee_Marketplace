@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import {  detailsOrder, payOrder } from '../actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import {PaypalButton} from 'react-paypal-button-v2';
+import {PayPalButton} from 'react-paypal-button-v2';
 
 function OrderScreen(props){
 
@@ -22,22 +22,24 @@ function OrderScreen(props){
 
   useEffect(() => {
     const addPayPalScript = async () => {
-      const {data} = await Axios.get('api/config/paypal');const script = document.createElement('script');
+      const {data} = await Axios.get('/api/config/paypal');
+      const script = document.createElement('script');
       script.type='text/javascript';
       script.src=`http://www.paypal.com/sdk/js?client-id=${data}`;
       script.async = true;
-      script.onload = () =>
+      script.onload = () => {
         setSdkReady(true);
-        document.appendChild(script);
-    }
-    if(!order._id){
+      }
+      document.body.appendChild(script);
+    };
+    if(!order){
       dispatch(detailsOrder(props.match.params.id));
     } else{
       if(!order.isPaid){
         if(!window.paypal){
           addPayPalScript();
         } else{
-          sdkReady(true);
+          setSdkReady(true);
         }
       }
     }
@@ -45,10 +47,10 @@ function OrderScreen(props){
 
     // dispatch(detailsOrder(props.match.params.id));
   const orderDetails = useSelector(state => state.orderDetails);
-  const {loading: loadingD, order: orderD, error: errorD} = orderDetails;
+  const {order, loading: loadingD, order: orderD, error: errorD} = orderDetails;
 
   const createOrder = useSelector(state => state.orderCreate);
-  const {order, error} = createOrder;
+  const {error} = createOrder;
 
   const successPaymentHandler = (paymentResult) => {
       dispatch(payOrder(order, paymentResult));
@@ -137,8 +139,8 @@ function OrderScreen(props){
         <ul>
           <li className="placeorder-actions-payment">
             {/* {loadingPay && <div>Finishing Payment...</div>} */}
-            {/* {!order.isPaid &&
-                <PaypalButton amount ={order.totalPrice} onSuccess={successPaymentHandler} />} */}
+            {!order.isPaid &&
+                <PayPalButton amount ={order.totalPrice} onSuccess={successPaymentHandler} />}
           </li>
           <li>
             <h3>Order Summary</h3>
@@ -162,9 +164,9 @@ function OrderScreen(props){
           {
             !order.isPaid && (
             <li>
-              {!sdkReady ? (<LoadingBox></LoadingBox>) :
-              (<PaypalButton amount ={order.totalPrice} onSuccess={successPaymentHandler}></PaypalButton>
-              )}
+              {/* {!sdkReady ? (<LoadingBox></LoadingBox>) :
+              (<PayPalButton amount ={order.totalPrice} onSuccess={successPaymentHandler}></PayPalButton>
+              )} */}
             </li>
             )}
         </ul>

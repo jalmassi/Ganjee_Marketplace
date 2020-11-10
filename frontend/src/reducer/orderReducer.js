@@ -36,11 +36,7 @@ function orderPayReducer(state= {order: {
 }
 
 function orderDetailsReducer(state = {
-    order: {
-        orderItems: {},
-        shipping: {},
-        payment: {}
-    }
+    loading: true
 }, action) {
     switch(action.type) {
         case ORDER_DETAILS_REQUEST:

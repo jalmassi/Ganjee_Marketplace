@@ -6,6 +6,7 @@ import CheckoutSteps from '../components/CheckoutSteps';
 import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import uuid from 'node-uuid';
 
 function PlaceOrderScreen(props){
 
@@ -88,7 +89,7 @@ function PlaceOrderScreen(props){
               </div>
               :
               cartItems.map(item =>
-                <li key={item._id}>
+                <li key={uuid()}>
                   <div className="cart-image">
                     <img src={item.image} alt="product" />
                   </div>
