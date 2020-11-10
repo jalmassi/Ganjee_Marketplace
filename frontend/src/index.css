@@ -387,7 +387,7 @@ tbody > tr:nth-child(odd) {
   color: #c04000;
 }
 .placeorder-actions-payment > div {
-  width: 100%;
+  width: 100% !important;
 }
 
 /* Profile */

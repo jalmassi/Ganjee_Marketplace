@@ -137,11 +137,7 @@ function OrderScreen(props){
       </div>
       <div className="placeorder-action">
         <ul>
-          <li className="placeorder-actions-payment">
-            {/* {loadingPay && <div>Finishing Payment...</div>} */}
-            {!order.isPaid &&
-                <PayPalButton amount ={order.totalPrice} onSuccess={successPaymentHandler} />}
-          </li>
+
           <li>
             <h3>Order Summary</h3>
           </li>
@@ -160,6 +156,10 @@ function OrderScreen(props){
           <li>
             <div>Order Total</div>
             <div>${(order.totalPrice).toFixed(2)}</div>
+          </li><li className="placeorder-actions-payment">
+            {/* {loadingPay && <div>Finishing Payment...</div>} */}
+            {!order.isPaid &&
+                <PayPalButton amount ={order.totalPrice} onSuccess={successPaymentHandler} />}
           </li>
           {
             !order.isPaid && (
