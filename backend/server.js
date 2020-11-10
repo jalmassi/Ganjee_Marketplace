@@ -24,7 +24,9 @@ app.use(bodyParser.json());
 app.use("/api/users", userRoute); //concatenates this path to route url
 app.use("/api/products", productRoute);
 app.use("/api/orders", orderRoute)
-
+app.use('/api/config/paypal', (req, res) => {
+    res.send(process.env.PAYPAL_CLIENT_ID || 'sb')
+});
 app.get("/api/products/:id", (req, res) => {
     const productId = req.params.id;
     const product = res.send(data.products.find(x=>x._id === productId));
