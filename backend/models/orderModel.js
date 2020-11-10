@@ -21,7 +21,6 @@ const orderItemSchema = new mongoose.Schema({
     },
 });
 const orderSchema = new mongoose.Schema({
-    user: {type: mongoose.Schema.Types.ObjectId},
     orderItems: [orderItemSchema],
     shipping: shippingSchema,
     payment: paymentSchema,
@@ -32,7 +31,8 @@ const orderSchema = new mongoose.Schema({
     isPaid: {type: Boolean, default: false},
     paidAt: {type: Date},
     isDelivered: {type: Boolean, default: false},
-    deliveredAt: {type: Date}
+    deliveredAt: {type: Date},
+    user: {type: mongoose.Schema.Types.ObjectId, ref: "User"}
 },
 {timestamps: true}
 );

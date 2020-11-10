@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 function CartScreen(props){
 
     const cart = useSelector(state => state.cart);
-
     const {cartItems} = cart;
 
     const productId = props.match.params.id;
@@ -23,7 +22,7 @@ function CartScreen(props){
         return () => {
 
         }
-    }, [dispatch, qty])
+    }, [dispatch, qty, productId])
 
     const checkoutHandler = () => {
         props.history.push("/signin?redirect=shipping");

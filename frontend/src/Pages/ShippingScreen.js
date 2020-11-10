@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveShipping } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps';
@@ -9,7 +9,6 @@ function ShippingScreen(props) {
   const {shipping} = cart;
   const userSignin = useSelector(state => state.userSignin);
   const {userInfo} = userSignin;
-  const [fullName, setFullName] = useState('');
   const [address, setAddress] = useState(shipping ? shipping.address : '');
   const [city, setCity] = useState(shipping ? shipping.city : '');
   const [postalCode, setPostalCode] = useState(shipping ? shipping.postalCode : '');
@@ -23,7 +22,7 @@ function ShippingScreen(props) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(saveShipping({ fullName, address, city, postalCode, country }));
+    dispatch(saveShipping({ address, city, postalCode, country }));
     props.history.push('/payment');
   }
   return <div>
@@ -38,14 +37,16 @@ function ShippingScreen(props) {
             <label htmlFor="address">
               Address
           </label>
-            <input type="text" name="address" id="address" value={address} onChange={(e) => setAddress(e.target.value)}>
+            <input type="text" name="address" id="address" value={address}
+              onChange={(e) => setAddress(e.target.value)} required>
             </input>
           </li>
           <li>
             <label htmlFor="city">
               City
           </label>
-            <input type="text" name="city" id="city" value={city} onChange={(e) => setCity(e.target.value)}>
+            <input type="text" name="city" id="city" value={city} onChange={(e) => setCity(e.target.value)}
+              required>
             </input>
           </li>
           <li>

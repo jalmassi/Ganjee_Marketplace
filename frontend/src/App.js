@@ -18,11 +18,13 @@ function App() {
     const userSignin = useSelector(state => state.userSignin);
     const {userInfo} = userSignin;
 
+    const cart = useSelector(state => state.cart);
+    const {cartItems} = cart;
+
     const dispatch = useDispatch();
 
     const signoff = () => {
         dispatch(logout());
-        localStorage.clear();
         closeMenu();
     }
   const openMenu = () => {
@@ -31,6 +33,7 @@ function App() {
   const closeMenu = () => {
     document.querySelector(".sidebar").classList.remove("open");
   }
+  
   return (
     <BrowserRouter>
     <div className="grid-container">
@@ -42,10 +45,24 @@ function App() {
                     <Link to="/">Ganjee</Link>
                 </div>
                 <div className="header-links">
-                    <a href="/cart">Cart</a>
-                    {(userInfo && userInfo.name != null) ? <Link to="/profile">{userInfo.name}</Link> :
-                    <Link to="/signin">Sign In</Link>}
-
+                    <Link to="/cart">
+                        Cart
+                        {cartItems.length > 0 && (
+                            <span className="cartNotification">{cartItems.length}</span>
+                        )}
+                    </Link>
+                    {(userInfo && userInfo.name != null) ?
+                        (<div className="dropdown">
+                            <Link to="#">{userInfo.name}<i className="fa fa-caret-down"></i>{' '}</Link>
+                            <ul className="dropdown-content">
+                                <li>
+                                    <Link to="/" onClick={signoff}>Sign Out</Link>
+                                </li>
+                            </ul>
+                        </div>)
+                            :
+                            <Link to="/signin">Sign In</Link>
+                    }
                 </div>
             </header>
             <aside className="sidebar">

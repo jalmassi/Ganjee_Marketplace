@@ -26,25 +26,26 @@ router.put("/:id/pay", async(req,res) => { //edit order -> paid
 router.post("/", async (req,res) => { //create order
     const newOrder = new Order({
         orderItems: req.body.cartItems,
-        // user: req.user._id,
         shipping: req.body.shipping,
         payment: req.body.payment,
         itemsPrice: req.body.itemsPrice,
         shippingPrice: req.body.shippingPrice,
         taxPrice: req.body.taxPrice,
         totalPrice: req.body.totalPrice,
+        user: req.body.userId
     });
     const newOrderCreated = await newOrder.save();
     res.status(201).send({message: "New Order Created", data: newOrderCreated})
 });
 
 router.get("/:id", async (req, res) => { //get order details
-    console.log("in order details");
+    console.log("order details route");
+    console.log(req.params.id);
     const order = await Order.findById(req.params.id);
     if(order){
         res.send(order);
     }else{
-        res.status(404).send({message: "Order not found"});
+        res.status(404).send({message: "Order: not found"});
     }
 })
 

@@ -6,16 +6,18 @@ import CheckoutSteps from '../components/CheckoutSteps';
 function PaymentScreen(props) {
 
   const cart = useSelector(state => state.cart);
-  const {shipping} = cart;
+  const {shipping, payment} = cart;
   const [paymentMethod, setPaymentMethod] = useState('PayPal');
   const dispatch = useDispatch();
+
+  const [paymentRadio, setPaymentRadio] = useState('');
 
   if(!shipping.address || !shipping.city ){
     props.history.push("/shipping");
   }
 
   const submitHandler = (e) => {
-    e.preventDefault();
+    e.preventDefault(); //stops refresh
     dispatch(savePayment({ paymentMethod }));
     props.history.push('placeorder');
   }
@@ -29,10 +31,19 @@ function PaymentScreen(props) {
           </li>
           <li>
             <div>
-                <input type="radio" name="address" id="address" value="PayPal" onChange={(e) => setPaymentMethod(e.target.value)}>
+                <input type="radio" checked={paymentMethod==='PayPal'} name="paypal" id="address" value="PayPal" onChange={(e) => setPaymentMethod(e.target.value)}>
                 </input>
-                <label htmlFor="address">
+                <label htmlFor="paypal">
                 Paypal
+                </label>
+            </div>
+          </li>
+          <li>
+            <div>
+                <input type="radio" checked={paymentMethod==='Stripe'} name="stripe" id="address" value="Stripe" onChange={(e) => setPaymentMethod(e.target.value)}>
+                </input>
+                <label htmlFor="stripe">
+                Stripe
                 </label>
             </div>
           </li>

@@ -14,7 +14,8 @@ const initialState = {
         cartItems: cartItems,
         shipping: localStorage.getItem('shipping') ?
             JSON.parse(localStorage.getItem('shipping')) : {},
-        payment: {}
+        payment: localStorage.getItem('payment') ?
+            JSON.parse(localStorage.getItem('payment')) : 'PayPal'
     },
     userSignin:{userInfo}};
 const reducer = combineReducers({

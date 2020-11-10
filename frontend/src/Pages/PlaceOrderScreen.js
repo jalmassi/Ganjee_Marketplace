@@ -3,17 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { createOrder } from '../actions/orderActions';
 import CheckoutSteps from '../components/CheckoutSteps';
+import { ORDER_CREATE_RESET } from '../constants/orderConstants';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 
 function PlaceOrderScreen(props){
 
   const userSignin = useSelector(state => state.userSignin);
   const {userInfo} = userSignin;
+  const userId = userInfo._id;
   const cart = useSelector(state => state.cart);
   const orderCreate = useSelector(state => state.orderCreate);
   const {loading, success, error, order} = orderCreate;
 
   const {cartItems, shipping, payment} = cart;
-  if(userInfo == undefined){
+  if(userInfo === undefined){
     props.history.push("/signin");
   }
   if(!shipping.address){
@@ -23,27 +27,28 @@ function PlaceOrderScreen(props){
     props.history.push("/payment");
   }
 
-  const itemsPrice = cartItems.reduce((a,b) => a + b.price*b.qty, 0);
-  const shippingPrice = itemsPrice < 100 ? 0 : 7;
-  const taxPrice = 0.15 * itemsPrice;
-  const totalPrice = itemsPrice + shippingPrice + taxPrice;
+  cart.itemsPrice = cartItems.reduce((a,b) => a + b.price*b.qty, 0).toFixed(2);
+  cart.shippingPrice = cart.itemsPrice < 100 ? 0 : (7).toFixed(2);
+  cart.taxPrice = (0.15 * cart.itemsPrice).toFixed(2);
+  cart.totalPrice = (parseFloat(cart.itemsPrice) + parseFloat(cart.shippingPrice) + parseFloat(cart.taxPrice)).toFixed(2);
 
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     if(success){
       props.history.push("/order/" + order._id);
+      // dispatch({type: ORDER_CREATE_RESET});
     }
     return () => {
 
       }
-  }, [success])
+  }, [success, dispatch, props.history])
 
   const placeOrderHandler = () => {
-      dispatch(createOrder({
-        cartItems, shipping, payment, itemsPrice, shippingPrice, taxPrice, totalPrice
-      }));
+    dispatch(createOrder({...cart, orderItems: cart.cartItems, userId}))
+      // dispatch(createOrder({
+      //   cartItems, shipping, payment, itemsPrice, shippingPrice, taxPrice, totalPrice, userId
+      // }));
   }
 
   return <div>
@@ -51,26 +56,27 @@ function PlaceOrderScreen(props){
   <div className="placeorder">
     <div className="placeorder-info">
       <div>
-        <h3>
+        <h2>
           Shipping
-        </h3>
-        <div>
-          {cart.shipping.address}, {cart.shipping.city},
+        </h2>
+        <p>
+          <strong>Name:</strong> {userInfo.name}
+          <br></br><strong>Address:</strong>  {cart.shipping.address}, {cart.shipping.city},
         {cart.shipping.postalCode}, {cart.shipping.country},
-        </div>
+        </p>
       </div>
       <div>
-        <h3>Payment</h3>
+        <h2>Payment</h2>
         <div>
-          Payment Method: {cart.payment.paymentMethod}
+          <strong>Payment Method:</strong> {cart.payment.paymentMethod}
         </div>
       </div>
       <div>
         <ul className="cart-list-container">
           <li>
-            <h3>
+            <h2>
               Shopping Cart
-        </h3>
+        </h2>
         <div>
           Price
         </div>
@@ -82,8 +88,7 @@ function PlaceOrderScreen(props){
               </div>
               :
               cartItems.map(item =>
-                <div key={item._id}>
-                <li>
+                <li key={item._id}>
                   <div className="cart-image">
                     <img src={item.image} alt="product" />
                   </div>
@@ -99,10 +104,9 @@ function PlaceOrderScreen(props){
                     </div>
                   </div>
                   <div className="cart-price">
-                    ${item.price}
+                    {item.qty} x {item.price.toFixed(2)} = ${(item.qty*item.price).toFixed(2)}
                   </div>
                 </li>
-              </div>
               )}
         </ul>
       </div>
@@ -110,26 +114,28 @@ function PlaceOrderScreen(props){
     <div className="placeorder-action">
       <ul>
         <li>
-          <button className="button primary full-width" onClick={placeOrderHandler} >Place Order</button>
+          <button className="button primary full-width" onClick={placeOrderHandler} disabled={cart.cartItems.length===0}>Place Order</button>
         </li>
+        {loading && <LoadingBox></LoadingBox>}
+        {error && <MessageBox variant="danger">{error}</MessageBox>}
         <li>
           <h3>Order Summary</h3>
         </li>
         <li>
           <div>Items</div>
-          <div>${itemsPrice}</div>
+          <div>${cart.itemsPrice}</div>
         </li>
         <li>
           <div>Shipping</div>
-          <div>${shippingPrice}</div>
+          <div>${cart.shippingPrice}</div>
         </li>
         <li>
           <div>Tax</div>
-          <div>${taxPrice}</div>
+          <div>${cart.taxPrice}</div>
         </li>
         <li>
           <div>Order Total</div>
-          <div>${totalPrice}</div>
+          <div>${cart.totalPrice}</div>
         </li>
       </ul>
     </div>

@@ -1,14 +1,18 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {  detailsOrder, payOrder } from '../actions/orderActions';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 
 function OrderScreen(props){
 
+  // const [orderId, setOrderId] = useState('');
+  // setOrderId(props.match.params.id);
   const userSignin = useSelector(state => state.userSignin);
   const {userInfo} = userSignin;
-  const orderPay = useSelector(state => state.orderPay);
-  const {loading: loadingPay, success: successPay, error: errorPay } = orderPay;
+  // const orderPay = useSelector(state => state.orderPay);
+  // const {loading: loadingPay, success: successPay, error: errorPay } = orderPay;
   const dispatch = useDispatch();
 
   if(userInfo === undefined){
@@ -16,37 +20,46 @@ function OrderScreen(props){
   }
 
   useEffect(() => {
-    if(successPay){
-      props.history.push("/profile");
-    }else{
+      console.log(props.match.params.id);
       dispatch(detailsOrder(props.match.params.id));
-    }
-    return () => {
+      // dispatch(emptyCart());
+      return () => {
 
-    }
-  }, [successPay])
+      }
+    }, [props, props.match.params.id, dispatch])
 
+    // dispatch(detailsOrder(props.match.params.id));
   const orderDetails = useSelector(state => state.orderDetails);
-  const {loading, order, error} = orderDetails;
-  const successPaymentHandler = (paymentResult) => {
-      dispatch(payOrder(order, paymentResult));
-  }
+  const {loading: loadingD, order: orderD, error: errorD} = orderDetails;
 
-  return loading ? <div>Loading...</div> : error ? <div>{error}</div> :
+  const createOrder = useSelector(state => state.orderCreate);
+  const {order, error} = createOrder;
+
+  // const successPaymentHandler = (paymentResult) => {
+  //     dispatch(payOrder(order, paymentResult));
+  // }
+  // console.log(Number(order.totalPrice).toFixed(2));
+  return loadingD ? <LoadingBox></LoadingBox> : error ? <MessageBox variant="danger">{error}</MessageBox> :
   <div>
+    <h1>Order {order._id}</h1>
   <div className="placeorder">
       <div className="placeorder-info">
         <div>
-          <h3>
-            Shipping
-          </h3>
-          <div>
-            {order.shipping.address}, {order.shipping.city},
-          {order.shipping.postalCode}, {order.shipping.country},
-          </div>
-          <div>
-              {order.isDelivered ? "Delivered at " + order.deliveredAt : "Not Delivered"}
-          </div>
+        <h2>
+          Shipping
+        </h2>
+        <p>
+          <strong>Name:</strong> {userInfo.name}
+          <br></br><strong>Address:</strong>  {order.shipping.address}, {order.shipping.city},
+        {order.shipping.postalCode}, {order.shipping.country},
+        </p>
+          {order.isDelivered ?
+            (<MessageBox variant="success">
+              Delivered at {order.deliveredAt}
+            </MessageBox>)
+            :
+            <MessageBox variant="danger">Not Delivered</MessageBox>
+          }
         </div>
         <div>
           <h3>Payment</h3>
@@ -90,7 +103,7 @@ function OrderScreen(props){
                       </div>
                     </div>
                     <div className="cart-price">
-                      ${item.price.toFixed(2)}
+                      ${item.price}
                     </div>
                   </li>
                 )}
@@ -100,7 +113,7 @@ function OrderScreen(props){
       <div className="placeorder-action">
         <ul>
           <li className="placeorder-actions-payment">
-            {loadingPay && <div>Finishing Payment...</div>}
+            {/* {loadingPay && <div>Finishing Payment...</div>} */}
             {/* {!order.isPaid &&
                 <PaypalButton amount ={order.totalPrice} onSuccess={successPaymentHandler} />} */}
           </li>
@@ -121,7 +134,7 @@ function OrderScreen(props){
           </li>
           <li>
             <div>Order Total</div>
-            <div>${order.totalPrice.toFixed(2)}</div>
+            <div>${order.totalPrice}</div>
           </li>
         </ul>
       </div>
