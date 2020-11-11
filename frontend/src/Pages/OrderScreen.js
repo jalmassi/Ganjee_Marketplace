@@ -45,7 +45,7 @@ function OrderScreen(props){
         }
       }
     }
-  }, [props, props.match.params.id, dispatch, sdkReady])
+  }, [props, props.match.params.id, dispatch, sdkReady, successPay])
 
     // dispatch(detailsOrder(props.match.params.id));
   const orderDetails = useSelector(state => state.orderDetails);
@@ -88,7 +88,7 @@ function OrderScreen(props){
           <div>
             {order.isPaid ?
               (<MessageBox variant="success">
-                Paid at {order.PaidAt}
+                Paid at {order.paidAt}
               </MessageBox>)
               :
               (<MessageBox variant="danger">

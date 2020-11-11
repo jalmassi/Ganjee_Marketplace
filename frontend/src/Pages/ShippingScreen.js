@@ -15,7 +15,6 @@ function ShippingScreen(props) {
   const [country, setCountry] = useState(shipping ? shipping.country : '');
   const dispatch = useDispatch();
 
-  console.log("address: " + address);
   if(userInfo === undefined){
     props.history.push("/signin");
   }
