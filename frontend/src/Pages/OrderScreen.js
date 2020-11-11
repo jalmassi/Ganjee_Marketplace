@@ -6,14 +6,15 @@ import {  detailsOrder, payOrder } from '../actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import {PayPalButton} from 'react-paypal-button-v2';
+import uuid from 'node-uuid';
 
 function OrderScreen(props){
 
   const [sdkReady, setSdkReady] = useState(false);
   const userSignin = useSelector(state => state.userSignin);
   const {userInfo} = userSignin;
-  // const orderPay = useSelector(state => state.orderPay);
-  // const {loading: loadingPay, success: successPay, error: errorPay } = orderPay;
+  const orderPay = useSelector(state => state.orderPay);
+  const {loading: loadingPay, success: successPay, error: errorPay } = orderPay;
   const dispatch = useDispatch();
 
   if(userInfo === undefined){
@@ -25,14 +26,15 @@ function OrderScreen(props){
       const {data} = await Axios.get('/api/config/paypal');
       const script = document.createElement('script');
       script.type='text/javascript';
-      script.src=`http://www.paypal.com/sdk/js?client-id=${data}`;
+      console.log(data);
+      script.src=`https://www.paypal.com/sdk/js?client-id=${data}`;
       script.async = true;
       script.onload = () => {
         setSdkReady(true);
       }
       document.body.appendChild(script);
     };
-    if(!order){
+    if(!order || successPay || (order && order._id !== props.match.params.id)){ //if orderDetails hasn't run before or order is paid or wrong order id, get updated order
       dispatch(detailsOrder(props.match.params.id));
     } else{
       if(!order.isPaid){
@@ -112,7 +114,7 @@ function OrderScreen(props){
                 </div>
                 :
                 order.orderItems.map(item =>
-                  <li>
+                  <li key={uuid()}>
                     <div className="cart-image">
                       <img src={item.image} alt="product" />
                     </div>
@@ -156,19 +158,18 @@ function OrderScreen(props){
           <li>
             <div>Order Total</div>
             <div>${(order.totalPrice).toFixed(2)}</div>
-          </li><li className="placeorder-actions-payment">
-            {/* {loadingPay && <div>Finishing Payment...</div>} */}
-            {!order.isPaid &&
-                <PayPalButton amount ={order.totalPrice} onSuccess={successPaymentHandler} />}
           </li>
-          {
-            !order.isPaid && (
-            <li>
-              {/* {!sdkReady ? (<LoadingBox></LoadingBox>) :
-              (<PayPalButton amount ={order.totalPrice} onSuccess={successPaymentHandler}></PayPalButton>
-              )} */}
-            </li>
+          {!order.isPaid &&
+          <li className="placeorder-actions-payment">
+            {!sdkReady ? (<LoadingBox></LoadingBox>) : (
+              <>
+                {/* {errorPay && (<MessageBox variant="danger">{errorPay}</MessageBox>)} */}
+                {/* {loadingPay ? (<LoadingBox></LoadingBox>) : ''} */}
+                <PayPalButton amount ={order.totalPrice} onSuccess={successPaymentHandler} />
+              </>
             )}
+          </li>
+          }
         </ul>
       </div>
     </div>

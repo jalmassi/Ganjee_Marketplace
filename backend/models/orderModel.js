@@ -20,10 +20,17 @@ const orderItemSchema = new mongoose.Schema({
         required: true
     },
 });
+const paymentResultSchema = {
+        id: {type: String},
+        status: {type: String},
+        update_time: {type: String},
+        email_address: {type: String},
+}
 const orderSchema = new mongoose.Schema({
     orderItems: [orderItemSchema],
     shipping: shippingSchema,
     payment: paymentSchema,
+    paymentResult: paymentResultSchema,
     itemsPrice: {type: Number},
     taxPrice: {type: Number},
     shippingPrice: {type: Number},
@@ -32,7 +39,7 @@ const orderSchema = new mongoose.Schema({
     paidAt: {type: Date},
     isDelivered: {type: Boolean, default: false},
     deliveredAt: {type: Date},
-    user: {type: mongoose.Schema.Types.ObjectId, ref: "User"}
+    user: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
 },
 {timestamps: true}
 );

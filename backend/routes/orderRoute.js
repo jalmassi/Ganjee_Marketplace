@@ -8,14 +8,13 @@ router.put("/:id/pay", async(req,res) => { //edit order -> paid
     if(order){
         order.isPaid = true;
         order.paidAt = Date.now();
-        order.payment = {
-            paymentMethod: 'paypal',
-            paymentResult: {
-                payerID: req.body.payerID,
-                orderID: req.body.orderID,
-                paymentID: req.body.paymentID
-            }
-        }
+
+        order.paymentResult = {
+            id: req.body.id,
+            status: req.body.status,
+            update_time: req.body.update_time,
+            email_address: req.body.email_address,
+            };
         const updateOrder = await order.save();
         res.send({message: 'Order paid', order: updateOrder});
     }else{

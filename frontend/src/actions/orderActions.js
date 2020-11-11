@@ -24,21 +24,23 @@ const createOrder = (order) => async (dispatch, getState) => {
 
 const payOrder = (order, paymentResult) => async (dispatch, getState) => {
     try {
+        console.log("inside payorder action: start");
         dispatch({type: ORDER_PAY_REQUEST, payload: paymentResult});
         const { userSignin: { userInfo}} = getState();
-        const { data } = await Axios.put("api/orders/" + order._id + "/pay", paymentResult, {
+        const { data } = await Axios.put("/api/orders/" + order._id + "/pay", paymentResult, {
             headers: {
                 Authorization: 'Bearer ' + userInfo.token
             }
         });
         dispatch({type: ORDER_PAY_SUCCESS, payload: data});
     } catch (error) {
-        dispatch({type: ORDER_PAY_FAIL, payload: error.message});
+        const message = error.response && error.response.data.message ?
+            error.response.data.message : error.response;
+        dispatch({type: ORDER_PAY_FAIL, payload: message});
     }
 }
 
 const detailsOrder = (orderId) => async (dispatch, getState) => {
-    console.log("before details order");
     dispatch({type: ORDER_DETAILS_REQUEST, payload: orderId});
     try {
         const {userSignin: {userInfo}} = getState();
@@ -47,7 +49,6 @@ const detailsOrder = (orderId) => async (dispatch, getState) => {
                 Authorization: 'Bearer ' + userInfo.token
             }
         });
-        console.log("detailsOrder action");
         dispatch({type: ORDER_DETAILS_SUCCESS, payload: data});
     } catch (error) {
         dispatch({type: ORDER_DETAILS_FAIL, payload: error.message});

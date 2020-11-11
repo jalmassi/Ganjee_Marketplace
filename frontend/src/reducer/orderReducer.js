@@ -17,11 +17,7 @@ function orderCreateReducer(state= {product:{} }, action){
     }
 }
 
-function orderPayReducer(state= {order: {
-    orderItems: [],
-    shipping: {},
-    payment: {}
-}}, action){
+export const orderPayReducer = (state= {}, action) => {
 
     switch(action.type) {
         case ORDER_PAY_REQUEST:
@@ -50,4 +46,4 @@ function orderDetailsReducer(state = {
     }
 }
 
-export {orderCreateReducer, orderPayReducer, orderDetailsReducer}
+export {orderCreateReducer, orderDetailsReducer}
