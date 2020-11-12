@@ -39,10 +39,12 @@ router.post("/", async (req,res) => { //create order
 
 router.get("/:id", async (req, res) => { //get order details
     console.log("order details: route start");
-    console.log(req.params.id);
+    console.log("orderId" + req.params.id);
     const order = await Order.findById(req.params.id);
     if(order){
+        console.log("order details going to be sent");
         res.send(order);
+        console.log("order details after sent");
     }else{
         res.status(404).send({message: "Order: not found"});
     }

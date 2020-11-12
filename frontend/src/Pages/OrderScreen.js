@@ -7,6 +7,8 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import {PayPalButton} from 'react-paypal-button-v2';
 import uuid from 'node-uuid';
+import {ORDER_PAY_RESET} from '../constants/orderConstants';
+import { CART_EMPTY } from '../constants/cartConstants';
 
 function OrderScreen(props){
 
@@ -24,6 +26,7 @@ function OrderScreen(props){
   useEffect(() => {
     const addPayPalScript = async () => {
       const {data} = await Axios.get('/api/config/paypal');
+      console.log("after await axios paypal");
       const script = document.createElement('script');
       script.type='text/javascript';
       console.log(data);
@@ -32,16 +35,24 @@ function OrderScreen(props){
       script.onload = () => {
         setSdkReady(true);
       }
+      console.log("sdkready: " + sdkReady);
       document.body.appendChild(script);
     };
-    if(!order || successPay || (order && order._id !== props.match.params.id)){ //if orderDetails hasn't run before or order is paid or wrong order id, get updated order
+    if((!order || successPay || (order && order._id !== props.match.params.id))){ //if orderDetails hasn't run before or order is paid or wrong order id, get updated order
+      dispatch({type: ORDER_PAY_RESET});
+      // dispatch({type: CART_EMPTY});
       dispatch(detailsOrder(props.match.params.id));
     } else{
+      console.log("order.isPaid: " + order.isPaid);
       if(!order.isPaid){
+        console.log("window.paypal: " + window.paypal);
         if(!window.paypal){
+          console.log("in if !window.paypal");
           addPayPalScript();
         } else{
+          console.log("in else !window.paypal");
           setSdkReady(true);
+          console.log("sdkReady else: " + sdkReady);
         }
       }
     }

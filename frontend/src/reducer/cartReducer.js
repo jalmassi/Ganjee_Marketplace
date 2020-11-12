@@ -1,6 +1,6 @@
 import { CART_ADD_ITEM, CART_EMPTY, CART_REMOVE_ITEM, CART_SAVE_PAYMENT, CART_SAVE_PLACEORDER, CART_SAVE_SHIPPING } from "../constants/cartConstants";
 
-function cartReducer(state= {cartItems: [], shipping: {}, payment: {}}, action) {
+function cartReducer(state= {cartItems: []}, action) {
     switch(action.type){
         case CART_ADD_ITEM:
             const item = action.payload;
