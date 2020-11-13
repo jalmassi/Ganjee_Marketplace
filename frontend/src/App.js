@@ -4,6 +4,7 @@ import { logout } from './actions/userActions';
 import './App.css';
 import CartScreen from './Pages/CartScreen';
 import HomeScreen from './Pages/HomeScreen';
+import OrderHistoryScreen from './Pages/OrderHistoryScreen';
 import OrderScreen from './Pages/OrderScreen';
 import PaymentScreen from './Pages/PaymentScreen';
 import PlaceOrderScreen from './Pages/PlaceOrderScreen';
@@ -33,7 +34,7 @@ function App() {
   const closeMenu = () => {
     document.querySelector(".sidebar").classList.remove("open");
   }
-  
+
   return (
     <BrowserRouter>
     <div className="grid-container">
@@ -70,6 +71,9 @@ function App() {
                 <button className="sidebar-close-button" onClick={closeMenu}>x</button>
                 <ul>
                     <li>
+                        <Link to="/orderhistory">Order History</Link>
+                    </li>
+                    <li>
                         <a href="/products">Products</a>
                     </li>
                     <li>
@@ -88,6 +92,7 @@ function App() {
                   <Route path="/product/:id" component={ProductScreen} />
                   <Route path="/products" component={ProductsScreen} />
                   <Route path="/cart/:id?" component={CartScreen} />
+                  <Route path="/orderhistory" component={OrderHistoryScreen} />
                   <Route path="/" exact={true} component={HomeScreen} />
                 </div>
             </main>
