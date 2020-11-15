@@ -317,6 +317,7 @@ input{
 
 .table {
   width: 100%;
+  border-color: collapse;
 }
 th {
   text-align: left;

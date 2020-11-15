@@ -61,6 +61,7 @@ export const listOrderMine = () => async (dispatch, getState) => {
     dispatch({type: ORDER_MINE_LIST_REQUEST});
     const { userSignin: {userInfo} } = getState();
     try {
+        console.log("inside listordermine try");
         const {data}  = await Axios.get('/api/orders/mine', {
             headers: {
                 Authorization: `Bearer ${userInfo.token}`
