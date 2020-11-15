@@ -8,6 +8,8 @@ import productRoute from './routes/productRoute';
 import orderRoute from './routes/orderRoute';
 import bodyParser from 'body-parser';
 
+const cookieParser = require('cookie-parser');
+
 dotenv.config();
 
 const mongodbUrl = config.MONGODB_URL;
@@ -21,6 +23,7 @@ mongoose.connect(mongodbUrl, {
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use("/api/users", userRoute); //concatenates this path to route url
 app.use("/api/products", productRoute);
 app.use("/api/orders", orderRoute)
