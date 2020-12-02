@@ -11,7 +11,7 @@ import PlaceOrderScreen from './Pages/placeOrderPage';
 import ProductScreen from './Pages/productPage';
 import ProductsScreen from './Pages/productsPage';
 import RegisterScreen from './Pages/registerScreen';
-import ShippingScreen from './Pages/ShippingScreen';
+import ShippingScreen from './Pages/shippingPage';
 import SigninScreen from './Pages/SigninScreen';
 
 function App() {

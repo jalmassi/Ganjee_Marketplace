@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { saveShipping } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps';
 
-function ShippingScreen(props) {
+export default function ShippingPage(props) {
 
   const cart = useSelector(state => state.cart);
   const {shipping} = cart;
@@ -71,4 +71,3 @@ function ShippingScreen(props) {
   </div>
 
 }
-export default ShippingScreen;
