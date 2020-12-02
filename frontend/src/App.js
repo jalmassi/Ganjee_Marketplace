@@ -4,15 +4,15 @@ import { logout } from './actions/userActions';
 import './App.css';
 import CartPage from './Pages/cartPage';
 import HomePage from './Pages/homePage';
-import OrderHistoryScreen from './Pages/orderHistoryPage';
-import OrderScreen from './Pages/orderPage';
-import PaymentScreen from './Pages/paymentPage';
-import PlaceOrderScreen from './Pages/placeOrderPage';
-import ProductScreen from './Pages/productPage';
-import ProductsScreen from './Pages/productsPage';
-import RegisterScreen from './Pages/registerScreen';
-import ShippingScreen from './Pages/shippingPage';
-import SigninScreen from './Pages/signInPage';
+import OrderHistoryPage from './Pages/orderHistoryPage';
+import OrderPage from './Pages/orderPage';
+import PaymentPage from './Pages/paymentPage';
+import PlaceOrderPage from './Pages/placeOrderPage';
+import ProductPage from './Pages/productPage';
+import ProductsPage from './Pages/productsPage';
+import RegisterPage from './Pages/registerPage';
+import ShippingPage from './Pages/shippingPage';
+import SigninPage from './Pages/signInPage';
 
 function App() {
 
@@ -83,16 +83,16 @@ function App() {
             </aside>
             <main className="main">
                 <div className="content">
-                    <Route path="/order/:id" component={OrderScreen} />
-                  <Route path="/placeorder" component={PlaceOrderScreen} />
-                  <Route path="/payment" component={PaymentScreen} />
-                  <Route path="/shipping" component={ShippingScreen} />
-                  <Route path="/signin" component={SigninScreen} />
-                  <Route path="/register" component={RegisterScreen} />
-                  <Route path="/product/:id" component={ProductScreen} />
-                  <Route path="/products" component={ProductsScreen} />
+                    <Route path="/order/:id" component={OrderPage} />
+                  <Route path="/placeorder" component={PlaceOrderPage} />
+                  <Route path="/payment" component={PaymentPage} />
+                  <Route path="/shipping" component={ShippingPage} />
+                  <Route path="/signin" component={SigninPage} />
+                  <Route path="/register" component={RegisterPage} />
+                  <Route path="/product/:id" component={ProductPage} />
+                  <Route path="/products" component={ProductsPage} />
                   <Route path="/cart/:id?" component={CartPage} />
-                  <Route path="/orderhistory" component={OrderHistoryScreen} />
+                  <Route path="/orderhistory" component={OrderHistoryPage} />
                   <Route path="/" exact={true} component={HomePage} />
                 </div>
             </main>
