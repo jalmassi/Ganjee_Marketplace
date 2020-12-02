@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 // import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,19 +11,27 @@ function HomePage (props) {
     const productList = useSelector(state => state.productList);
     const { products, loading, error } = productList;
     const dispatch = useDispatch();
-
+    const [searchField, setSearchField] = useState('');
     useEffect(() => { //runs when component rendered
-
         dispatch(listProducts());
         return () => {
             // cleanup
         };
     }, [dispatch])
+
+    const _handleKeyDown = (e) => {
+
+        if (e.key === 'Enter') {
+          console.log('Entered: ' + e.target.value);
+          setSearchField(e.target.value);
+        }
+    }
+
     return (
     loading? <div>Loading...</div> :
     error? <div>{error}</div> :
         <div>
-        <SearchBox placeholder="Search Product" handleChange={(e) => console.log(e.target.value)}/>
+        <SearchBox placeholder="Search Product" handleChange={_handleKeyDown}/>
         <ul className="products" >
             {
                 products.map(product =>
