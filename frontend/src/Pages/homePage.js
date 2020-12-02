@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProducts } from '../actions/productsActions';
 
-function HomeScreen (props) {
+function HomePage (props) {
 
     // const [products, setProduct] = useState([]);
     const productList = useSelector(state => state.productList);
@@ -44,4 +44,4 @@ function HomeScreen (props) {
     )
 }
 
-export default HomeScreen;
+export default HomePage;

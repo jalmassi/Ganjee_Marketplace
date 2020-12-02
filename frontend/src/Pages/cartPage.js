@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import uuid from 'node-uuid';
 
-function CartScreen(props){
+function CartPage(props){
 
     const cart = useSelector(state => state.cart);
     const {cartItems} = cart;
@@ -90,4 +90,4 @@ function CartScreen(props){
     </div>
 }
 
-export default CartScreen;
+export default CartPage;

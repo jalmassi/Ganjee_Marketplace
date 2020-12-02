@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { logout } from './actions/userActions';
 import './App.css';
-import CartScreen from './Pages/CartScreen';
-import HomeScreen from './Pages/HomeScreen';
+import CartPage from './Pages/cartPage';
+import HomePage from './Pages/homePage';
 import OrderHistoryScreen from './Pages/OrderHistoryScreen';
 import OrderScreen from './Pages/OrderScreen';
 import PaymentScreen from './Pages/PaymentScreen';
@@ -91,9 +91,9 @@ function App() {
                   <Route path="/register" component={RegisterScreen} />
                   <Route path="/product/:id" component={ProductScreen} />
                   <Route path="/products" component={ProductsScreen} />
-                  <Route path="/cart/:id?" component={CartScreen} />
+                  <Route path="/cart/:id?" component={CartPage} />
                   <Route path="/orderhistory" component={OrderHistoryScreen} />
-                  <Route path="/" exact={true} component={HomeScreen} />
+                  <Route path="/" exact={true} component={HomePage} />
                 </div>
             </main>
             <footer className="footer">
