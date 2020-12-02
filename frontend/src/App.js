@@ -12,7 +12,7 @@ import ProductScreen from './Pages/productPage';
 import ProductsScreen from './Pages/productsPage';
 import RegisterScreen from './Pages/registerScreen';
 import ShippingScreen from './Pages/shippingPage';
-import SigninScreen from './Pages/SigninScreen';
+import SigninScreen from './Pages/signInPage';
 
 function App() {
 
