@@ -10,7 +10,7 @@ import uuid from 'node-uuid';
 import {ORDER_PAY_RESET} from '../constants/orderConstants';
 import { CART_EMPTY } from '../constants/cartConstants';
 
-function OrderScreen(props){
+export default function OrderPage(props){
 
   const [sdkReady, setSdkReady] = useState(false);
   const userSignin = useSelector(state => state.userSignin);
@@ -186,5 +186,3 @@ function OrderScreen(props){
     </div>
   </div>
 }
-
-export default OrderScreen;

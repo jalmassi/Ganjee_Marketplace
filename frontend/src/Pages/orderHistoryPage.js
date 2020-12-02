@@ -4,7 +4,7 @@ import MessageBox from '../components/MessageBox';
 import LoadingBox from '../components/LoadingBox';
 import { listOrderMine } from '../actions/orderActions';
 
-export default function OrderHistoryScreen(props) {
+export default function OrderHistoryPage(props) {
     const orderMineList = useSelector(state => state.orderMineList);
     const {loading, orders, error} = orderMineList;
     const dispatch = useDispatch();

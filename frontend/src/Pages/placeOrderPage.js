@@ -8,7 +8,7 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import uuid from 'node-uuid';
 
-function PlaceOrderScreen(props){
+export default function PlaceOrderPage(props){
 
   const userSignin = useSelector(state => state.userSignin);
   const {userInfo} = userSignin;
@@ -143,5 +143,3 @@ function PlaceOrderScreen(props){
   </div>
 </div>
 }
-
-export default PlaceOrderScreen;

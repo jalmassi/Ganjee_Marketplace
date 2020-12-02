@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { savePayment } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps';
 
-function PaymentScreen(props) {
+export default function PaymentPage(props) {
 
   const cart = useSelector(state => state.cart);
   const {shipping, payment} = cart;
@@ -56,4 +56,3 @@ function PaymentScreen(props) {
   </div>
 
 }
-export default PaymentScreen;

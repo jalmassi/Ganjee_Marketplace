@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteProduct, listProducts, saveProduct } from '../actions/productsActions';
 
-function ProductsScreen (props) {
+export default function ProductsPage (props) {
     const [modalVisible, setModalVisible] = useState(false);
     const [id, setId] = useState('');
     const [name, setName] = useState('');
@@ -155,5 +155,3 @@ function ProductsScreen (props) {
     </div>
     </>
 }
-
-export default ProductsScreen;
