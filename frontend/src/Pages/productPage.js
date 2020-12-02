@@ -35,24 +35,24 @@ export default function ProductPage (props) {
             <div className="details-info">
                 <ul>
                     <li>
-                        <h4>
+                        <h2>
                             {product.name}
-                        </h4>
+                        </h2>
                     </li>
-                    <li>
+                    {/* <li>
                         <h4>
                             {product.rating} Stars ({product.numReviews} Reviews)
                         </h4>
+                    </li> */}
+                    <li>
+                        <p>
+                            Price: <strong>${product.price}</strong>
+                        </p>
                     </li>
                     <li>
-                        <h4>
-                            ${product.price}
-                        </h4>
-                    </li>
-                    <li>
-                        <h4>
-                            {product.description}
-                        </h4>
+                        <p>
+                            Description: <strong>{product.description}</strong>
+                        </p>
                     </li>
                 </ul>
                 </div>
